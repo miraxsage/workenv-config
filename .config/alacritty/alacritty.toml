@@ -1,0 +1,35 @@
+[general]
+import = [
+   "~/.config/alacritty/themes/themes/moonlight-ii-vscode.toml"
+]
+
+[terminal.shell]
+program = "zsh"
+args = ["-l", "-c", "tmux attach -t default || tmux new -s default"]
+
+[[keyboard.bindings]]
+key = "L"
+mods = "Command"
+chars = "\u001b[99~"
+
+[[keyboard.bindings]]
+key = "V"
+mods = "Command"
+action = "Paste"
+
+[env]
+TERM = "xterm-256color"
+
+[window]
+padding.x = 10
+padding.y = 5 
+option_as_alt = "Both"
+startup_mode = "Maximized"
+
+decorations = "Buttonless"
+opacity = 0.85
+blur = true
+
+[font]
+size = 16.0
+normal.family = "CaskaydiaCove Nerd Font"
