@@ -12,6 +12,9 @@ key = "L"
 mods = "Command"
 chars = "\u001b[99~"
 
+[colors.primary]
+background = "#242638"
+
 [[keyboard.bindings]]
 key = "V"
 mods = "Command"
