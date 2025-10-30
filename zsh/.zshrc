@@ -143,3 +143,4 @@ function yy() {
 
 # Aliases
 alias lg='lazygit'
+alias clr='clear'
