@@ -3,7 +3,7 @@ return {
     "neovim/nvim-lspconfig",
     opts = {
       servers = {
-        -- Volar: только шаблоны и Vue-файлы
+        -- Vue volar
         volar = {
           filetypes = { "vue" },
           init_options = {
@@ -11,14 +11,11 @@ return {
           },
         },
 
-        -- VTSLS: TypeScript + Vue через плагин
+        -- VTSLS: TypeScript + Vue over plugin
         vtsls = {
           filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
           settings = {
             vtsls = {
-              experimental = {
-                workspaceDiagnostics = true,
-              },
               tsserver = {
                 globalPlugins = {
                   {
@@ -33,18 +30,9 @@ return {
               },
             },
           },
-          on_attach = function(client)
-            -- снова включаем file watchers для рабочего пространства
-            client.server_capabilities.workspace = client.server_capabilities.workspace or {}
-            client.server_capabilities.workspace.didChangeWatchedFiles = {
-              dynamicRegistration = true,
-            }
-            client.server_capabilities.documentFormattingProvider = false
-            client.server_capabilities.documentRangeFormattingProvider = false
-          end,
         },
 
-        -- Отключаем устаревший vue_ls
+        -- Turn off deprecated vue_ls
         vue_ls = false,
       },
     },

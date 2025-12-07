@@ -7,6 +7,7 @@ TARGET="$HOME"
 # configs to install
 PACKAGES=(
   alacritty
+  wezterm
   tmux
   zsh
   nvim

@@ -13,7 +13,7 @@ mods = "Command"
 chars = "\u001b[99~"
 
 [colors.primary]
-background = "#242638"
+background = "#1e1f29"
 
 [[keyboard.bindings]]
 key = "V"
@@ -24,8 +24,8 @@ action = "Paste"
 TERM = "xterm-256color"
 
 [window]
-padding.x = 10
-padding.y = 5 
+padding.x = 3 
+padding.y = 7 
 option_as_alt = "Both"
 startup_mode = "Maximized"
 

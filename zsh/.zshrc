@@ -120,12 +120,6 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-# Принять autosuggestion и сразу выполнить
-
-bindkey '^[[99~' autosuggest-accept
-bindkey '^P' up-line-or-history
-bindkey '^N' down-line-or-history
-
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 alias ls="eza --tree --level=1 --icons=always --no-time --no-user --no-permissions"

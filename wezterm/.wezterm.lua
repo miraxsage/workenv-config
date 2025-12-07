@@ -1,0 +1,56 @@
+local wezterm = require("wezterm")
+local mux = wezterm.mux
+
+wezterm.on("gui-startup", function()
+	local tab, pane, window = mux.spawn_window({})
+	window:gui_window():maximize()
+end)
+
+return {
+	default_prog = { "zsh", "-l", "-c", "tmux attach -t default || tmux new -s default" },
+
+	set_environment_variables = {
+		TERM = "xterm-256color",
+	},
+
+	enable_tab_bar = false,
+	force_reverse_video_cursor = true,
+
+	-- window_background_image = "/Users/miraxsage/Downloads/unnamed.jpg",
+
+	window_padding = {
+		left = 3,
+		right = 3,
+		top = 7,
+		bottom = 7,
+	},
+	window_decorations = "TITLE | RESIZE",
+	macos_window_background_blur = 20,
+	window_background_opacity = 0.85,
+
+	color_scheme = "Catppuccin Mocha",
+
+	foreground_text_hsb = {
+		hue = 1,
+		saturation = 1,
+		brightness = 1,
+	},
+
+	font = wezterm.font({
+		family = "CaskaydiaCove Nerd Font",
+		weight = 400,
+	}),
+	font_size = 16.3,
+	font_rules = {
+		{
+			italic = true,
+			intensity = "Normal",
+			font = wezterm.font("Victor Mono", { style = "Italic", weight = 700 }),
+		},
+		{
+			italic = true,
+			intensity = "Bold",
+			font = wezterm.font("Victor Mono", { style = "Italic", weight = 700 }),
+		},
+	},
+}
