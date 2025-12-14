@@ -138,3 +138,8 @@ function yy() {
 # Aliases
 alias lg='lazygit'
 alias clr='clear'
+alias glm='glab mr'
+alias cdrp='cd ~/Dev/russpass/'
+
+# To customize prompt, run `p10k configure` or edit ~/.dotfiles/zsh/.p10k.zsh.
+[[ ! -f ~/.dotfiles/zsh/.p10k.zsh ]] || source ~/.dotfiles/zsh/.p10k.zsh

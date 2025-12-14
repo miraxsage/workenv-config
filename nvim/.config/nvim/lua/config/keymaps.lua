@@ -2,9 +2,21 @@
 -- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
 -- Add any additional keymaps here
 
-local lint = require("config.utils.lint")
+local kset = vim.keymap.set
+local kdel = vim.keymap.del
+
 -- Launch full project linting and open touble with results
-vim.keymap.set("n", "<leader>xl", lint.run_lint, { desc = "Project errors (Trouble)" })
+local lint = require("config.utils.lint-project")
+kset("n", "<leader>xl", lint.run_lint, { desc = "Project errors (Trouble)" })
 
 local show_full_path = require("config.utils.show-full-path")
-vim.keymap.set("n", "<leader>fP", show_full_path, { desc = "Full file path popup" })
+kset("n", "<leader>fP", show_full_path, { desc = "Full file path popup" })
+
+kdel("n", "<leader>.")
+kset("n", "<leader>.", function()
+  require("snacks.picker").recent()
+end, { desc = "Recent Files" })
+
+kset("n", "<leader>m", function()
+  require("snacks").scratch()
+end, { desc = "Open file scratch" })
