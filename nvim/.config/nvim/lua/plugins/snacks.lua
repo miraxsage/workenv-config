@@ -1,41 +1,49 @@
 return {
   "folke/snacks.nvim",
   opts = function(_, opts)
-    -- add relativenumber for files explorer
-    vim.api.nvim_create_autocmd("FileType", {
-      callback = function()
-        local win = vim.api.nvim_get_current_win()
-        local buf = vim.api.nvim_win_get_buf(win)
-        local ft = vim.api.nvim_buf_get_option(buf, "filetype")
+    opts.picker = opts.picker or {}
+    opts.picker.sources = opts.picker.sources or {}
 
-        if ft == "snacks_picker_list" or ft == "snacks_explorer" then
-          vim.defer_fn(function()
-            if vim.api.nvim_win_is_valid(win) then
-              vim.api.nvim_set_option_value("number", true, { win = win })
-              vim.api.nvim_set_option_value("relativenumber", true, { win = win })
-              vim.api.nvim_set_option_value("cursorline", true, { win = win })
-            end
-          end, 30)
-        end
-      end,
+    --relativenumbers in snacks explorer
+    opts.picker.sources.explorer = vim.tbl_deep_extend("force", opts.picker.sources.explorer or {}, {
+      win = {
+        list = {
+          wo = {
+            number = true,
+            relativenumber = true,
+            cursorline = true,
+          },
+        },
+      },
     })
-    vim.api.nvim_create_autocmd("WinEnter", {
-      callback = function()
-        local win = vim.api.nvim_get_current_win()
-        local buf = vim.api.nvim_win_get_buf(win)
-        local ft = vim.api.nvim_buf_get_option(buf, "filetype")
 
-        if ft == "snacks_picker_list" or ft == "snacks_explorer" then
-          vim.defer_fn(function()
-            if vim.api.nvim_win_is_valid(win) then
-              vim.api.nvim_set_option_value("number", true, { win = win })
-              vim.api.nvim_set_option_value("relativenumber", true, { win = win })
-              vim.api.nvim_set_option_value("cursorline", true, { win = win })
-            end
-          end, 30)
-        end
-      end,
-    })
+    opts.picker.layout = opts.picker.layout or {}
+
+    --large vertical layout for all skacks picker windows
+    local vertical_layout = {
+      preset = "vertical",
+      fullscreen = true,
+      layout = {
+        backdrop = false,
+        min_width = 40,
+        min_height = 10,
+        box = "vertical",
+        border = "rounded",
+        title = "{title} {live} {flags}",
+        title_pos = "center",
+        { win = "input", height = 1, border = "bottom" },
+        { win = "list", border = "none", height = 0.3 },
+        { win = "preview", title = "{preview}", border = "top", height = 0.7 },
+      },
+    }
+
+    opts.picker.layout = function(ctx)
+      if ctx.source == "explorer" then
+        return nil
+      end
+      return vertical_layout
+    end
+
     return opts
   end,
 }

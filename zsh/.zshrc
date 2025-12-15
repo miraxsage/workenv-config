@@ -135,11 +135,34 @@ function yy() {
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
+gmrdev() {
+  local branch url
+
+  branch=$(git branch --show-current) || return 1
+
+  url=$(
+    glab mr create -s "$branch" -b develop --fill --yes |
+    tee /dev/tty |
+    grep -Eo 'https://[^ ]+'
+  )
+
+  if [[ -n "$url" ]]; then
+    echo "$url" | pbcopy
+    open "${url}/diffs"
+    echo "MR succeeded: ${url}"
+  else
+    echo "Failed to get MR URL"
+    return 1
+  fi
+}
+
+
 # Aliases
 alias lg='lazygit'
 alias clr='clear'
-alias glm='glab mr'
 alias cdrp='cd ~/Dev/russpass/'
+alias gmr='glab mr'
+
 
 # To customize prompt, run `p10k configure` or edit ~/.dotfiles/zsh/.p10k.zsh.
 [[ ! -f ~/.dotfiles/zsh/.p10k.zsh ]] || source ~/.dotfiles/zsh/.p10k.zsh

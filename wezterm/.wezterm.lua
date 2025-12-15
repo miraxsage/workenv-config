@@ -6,6 +6,10 @@ wezterm.on("gui-startup", function()
 	window:gui_window():maximize()
 end)
 
+wezterm.on("format-window-title", function(tab, pane, tabs, panes, config)
+	return ""
+end)
+
 return {
 	default_prog = { "zsh", "-l", "-c", "tmux attach -t default || tmux new -s default" },
 
@@ -19,14 +23,14 @@ return {
 	-- window_background_image = "/Users/miraxsage/Downloads/unnamed.jpg",
 
 	window_padding = {
-		left = 3,
-		right = 3,
+		left = 5,
+		right = 5,
 		top = 7,
-		bottom = 7,
+		bottom = 0,
 	},
 	window_decorations = "TITLE | RESIZE",
 	macos_window_background_blur = 20,
-	window_background_opacity = 0.85,
+	window_background_opacity = 0.96,
 
 	color_scheme = "Catppuccin Mocha",
 
