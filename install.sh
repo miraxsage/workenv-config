@@ -11,6 +11,7 @@ PACKAGES=(
   tmux
   zsh
   nvim
+  spf
 )
 
 echo "📦 Installing dotfiles to $TARGET..."

@@ -2,6 +2,11 @@ return {
   {
     "neovim/nvim-lspconfig",
     opts = {
+
+      diagnostics = {
+        virtual_text = false,
+      },
+
       servers = {
         -- Vue volar
         volar = {

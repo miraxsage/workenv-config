@@ -12,6 +12,7 @@ fi
 export ZSH="$HOME/.oh-my-zsh"
 export EDITOR="nvim"
 export NVM_DIR="$HOME/.nvm"
+export JIRA_ENDPOINT="https://itpm.mos.ru/"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
@@ -122,7 +123,9 @@ source $ZSH/oh-my-zsh.sh
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-alias ls="eza --tree --level=1 --icons=always --no-time --no-user --no-permissions"
+ 
+alias ls="eza -l -T --level=1 --icons=always --no-user"
+
 
 function yy() {
  local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
@@ -131,6 +134,13 @@ function yy() {
   cd -- "$cwd"
  fi
  rm -f -- "$tmp"
+}
+
+ff() {
+  command spf "$@"
+
+  local lastdir="$HOME/Library/Application Support/superfile/lastdir"
+  [ -f "$lastdir" ] && . "$lastdir" && rm -f -- "$lastdir"
 }
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
@@ -166,3 +176,10 @@ alias gmr='glab mr'
 
 # To customize prompt, run `p10k configure` or edit ~/.dotfiles/zsh/.p10k.zsh.
 [[ ! -f ~/.dotfiles/zsh/.p10k.zsh ]] || source ~/.dotfiles/zsh/.p10k.zsh
+
+# Load ~/.env if exists
+if [ -f "$HOME/.env" ]; then
+  set -a
+  source "$HOME/.env"
+  set +a
+fi

@@ -1,5 +1,6 @@
 local wezterm = require("wezterm")
 local mux = wezterm.mux
+local act = wezterm.action
 
 wezterm.on("gui-startup", function()
 	local tab, pane, window = mux.spawn_window({})
@@ -13,9 +14,9 @@ end)
 return {
 	default_prog = { "zsh", "-l", "-c", "tmux attach -t default || tmux new -s default" },
 
-	set_environment_variables = {
-		TERM = "xterm-256color",
-	},
+	-- set_environment_variables = {
+	-- 	TERM = "xterm-256color",
+	-- },
 
 	enable_tab_bar = false,
 	force_reverse_video_cursor = true,
@@ -33,6 +34,30 @@ return {
 	window_background_opacity = 0.96,
 
 	color_scheme = "Catppuccin Mocha",
+	colors = {
+		selection_bg = "#1e1e2e",
+		selection_fg = "#cdd6f4",
+		ansi = {
+			"#45475a",
+			"#f38ba8",
+			"#a6e3a1",
+			"#f9e2af",
+			"#89b4fa",
+			"#f5c2e7",
+			"#94e2d5",
+			"#bac2de",
+		},
+		brights = {
+			"#585b70",
+			"#f38ba8",
+			"#a6e3a1",
+			"#f9e2af",
+			"#89b4fa",
+			"#f5c2e7",
+			"#94e2d5",
+			"#a6adc8",
+		},
+	},
 
 	foreground_text_hsb = {
 		hue = 1,

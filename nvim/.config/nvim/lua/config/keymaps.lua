@@ -20,3 +20,22 @@ end, { desc = "Recent Files" })
 kset("n", "<leader>m", function()
   require("snacks").scratch()
 end, { desc = "Open file scratch" })
+
+local path = require("config.utils.paths")
+vim.keymap.set("n", "<leader>fC", function()
+  local rel = path.get_project_relative_path(0)
+  if path.copy(rel) then
+    print("Copied project-relative path")
+  else
+    print("No file")
+  end
+end, { desc = "Copy project-relative file path" })
+
+vim.keymap.set("n", "<leader>fA", function()
+  local abs = path.get_absolute_path()
+  if path.copy(abs) then
+    print("Copied absolute path")
+  else
+    print("No file")
+  end
+end, { desc = "Copy absolute file path" })

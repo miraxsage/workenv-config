@@ -30,7 +30,6 @@ option_as_alt = "Both"
 startup_mode = "Maximized"
 
 decorations = "Buttonless"
-opacity = 0.85
 blur = true
 
 [font]
