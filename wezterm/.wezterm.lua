@@ -21,7 +21,7 @@ return {
 	enable_tab_bar = false,
 	force_reverse_video_cursor = true,
 
-	-- window_background_image = "/Users/miraxsage/Downloads/unnamed.jpg",
+	window_background_image = "/Users/miraxsage/Pictures/wallpapers/wezterm/bg-4.png",
 
 	window_padding = {
 		left = 5,

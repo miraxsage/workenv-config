@@ -7,7 +7,6 @@
     "lazyvim.plugins.extras.lang.go",
     "lazyvim.plugins.extras.lang.typescript",
     "lazyvim.plugins.extras.lang.vue",
-    "lazyvim.plugins.extras.ui.mini-animate",
     "lazyvim.plugins.extras.ui.smear-cursor",
     "lazyvim.plugins.extras.ui.treesitter-context",
     "lazyvim.plugins.extras.util.mini-hipatterns"

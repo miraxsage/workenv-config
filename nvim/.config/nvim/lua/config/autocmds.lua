@@ -19,15 +19,62 @@ vim.api.nvim_create_user_command("ClearSwp", function()
   vim.notify("Deleted swp-files: " .. #swp_files, vim.log.levels.INFO)
 end, {})
 
-vim.api.nvim_create_autocmd("ColorScheme", {
-  pattern = "kanagawa*",
-  callback = function()
-    vim.api.nvim_set_hl(0, "LineNr", { bg = "NONE" })
-    vim.api.nvim_set_hl(0, "CursorLineNr", { bg = "NONE", bold = true })
-    vim.api.nvim_set_hl(0, "CursorLine", { bg = "NONE" })
-    vim.api.nvim_set_hl(0, "Normal", { bg = "NONE" })
-  end,
-})
+-- Force transparent background for all colorschemes
+local function apply_transparent_bg()
+  local groups = {
+    "Normal",
+    "NormalNC",
+    "NormalFloat",
+    "SignColumn",
+    "LineNr",
+    "CursorLineNr",
+    "CursorLine",
+    "EndOfBuffer",
+    "FloatBorder",
+    -- Snacks
+    "SnacksNormal",
+    "SnacksNormalNC",
+    "SnacksPicker",
+    "SnacksPickerBorder",
+    "SnacksPickerInput",
+    "SnacksPickerInputBorder",
+    "SnacksPickerList",
+    "SnacksPickerListBorder",
+    "SnacksPickerPreview",
+    "SnacksPickerPreviewBorder",
+    "SnacksPickerBox",
+    "SnacksInputNormal",
+    "SnacksInputBorder",
+    "FloatTitle",
+    "SnacksPickerTitle",
+    "SnacksTitle",
+    -- Status line base background
+    "StatusLine",
+    "StatusLineNC",
+    "TabLineFill",
+    "NoicePopupBorder",
+    "NoicePopup",
+    "NoiceCmdlinePopupBorder",
+    "NoiceCmdlinePopup",
+    "NoiceCmdline",
+    -- Lualine middle section (base background)
+    "lualine_c_normal",
+    "lualine_c_insert",
+    "lualine_c_visual",
+    "lualine_c_replace",
+    "lualine_c_command",
+    "lualine_c_inactive",
+    "lualine_c_terminal",
+    "lualine_transparent",
+  }
+  for _, group in ipairs(groups) do
+    local ok, hl = pcall(vim.api.nvim_get_hl, 0, { name = group })
+    if ok and hl then
+      hl.bg = nil
+      vim.api.nvim_set_hl(0, group, hl)
+    end
+  end
+end
 
 vim.api.nvim_create_autocmd("ColorScheme", {
   pattern = "moonlight*",
@@ -108,6 +155,26 @@ vim.api.nvim_create_autocmd("ColorScheme", {
     vim.defer_fn(apply_italic_to_keywords, 150)
     vim.defer_fn(apply_italic_to_keywords, 500)
     vim.defer_fn(apply_italic_to_keywords, 1500)
+    -- Force transparent background with delays for plugins that set highlights after
+    apply_transparent_bg()
+    vim.defer_fn(apply_transparent_bg, 50)
+    vim.defer_fn(apply_transparent_bg, 150)
+  end,
+})
+
+-- Apply immediately for current session (colorscheme already loaded before VeryLazy)
+apply_transparent_bg()
+vim.defer_fn(apply_transparent_bg, 100)
+vim.defer_fn(apply_transparent_bg, 500)
+vim.defer_fn(apply_transparent_bg, 1000)
+
+-- Apply when dashboard loads (snacks dashboard sets highlights late)
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "snacks_dashboard",
+  callback = function()
+    apply_transparent_bg()
+    vim.defer_fn(apply_transparent_bg, 100)
+    vim.defer_fn(apply_transparent_bg, 300)
   end,
 })
 vim.api.nvim_create_autocmd("BufWinEnter", {

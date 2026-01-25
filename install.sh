@@ -12,6 +12,7 @@ PACKAGES=(
   zsh
   nvim
   spf
+  lazygit
 )
 
 echo "📦 Installing dotfiles to $TARGET..."
